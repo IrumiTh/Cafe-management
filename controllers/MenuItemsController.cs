@@ -5,56 +5,45 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CafeManagement.Controllers
 {
+
     [ApiController]
     [Route("api/[controller]")]
     public class MenuItemsController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
+        public MenuItemsController(ApplicationDbContext context) => _context = context;
 
-        public MenuItemsController(ApplicationDbContext context)
-        {
-            _context = context;
-        }
-
-        // GET: api/MenuItems
         [HttpGet]
-        public async Task<IActionResult> GetAllMenuItems()
+        public async Task<IActionResult> GetAll() => Ok(await _context.MenuItems.ToListAsync());
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(int id)
         {
-            var items = await _context.MenuItems.ToListAsync();
-            return Ok(items);
+            var item = await _context.MenuItems.FindAsync(id);
+            return item == null ? NotFound() : Ok(item);
         }
 
-        // POST: api/MenuItems
         [HttpPost]
-        public async Task<IActionResult> CreateMenuItem(MenuItem item)
+        public async Task<IActionResult> Create(MenuItem item)
         {
             _context.MenuItems.Add(item);
             await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetAllMenuItems), new { id = item.Id }, item);
+            return CreatedAtAction(nameof(Get), new { id = item.Id }, item);
         }
-
-        // PUT: api/MenuItems/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateMenuItem(int id, MenuItem updatedItem)
+        public async Task<IActionResult> Update(int id, MenuItem item)
         {
-            var item = await _context.MenuItems.FindAsync(id);
-            if (item == null) return NotFound();
-
-            item.Name = updatedItem.Name;
-            item.Price = updatedItem.Price;
-            // Update other fields as needed
-
+            if (id != item.Id) return BadRequest();
+            _context.Entry(item).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             return NoContent();
         }
 
-        // DELETE: api/MenuItems/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteMenuItem(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             var item = await _context.MenuItems.FindAsync(id);
             if (item == null) return NotFound();
-
             _context.MenuItems.Remove(item);
             await _context.SaveChangesAsync();
             return NoContent();

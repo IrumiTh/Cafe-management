@@ -1,4 +1,5 @@
-﻿namespace CafeManagement.Models
+﻿// File: Models/MenuItem.cs
+namespace CafeManagement.Models
 {
     public class MenuItem
     {

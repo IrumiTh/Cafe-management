@@ -136,3 +136,4 @@ F:\personal\.NET\CafeManagement\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Works
 F:\personal\.NET\CafeManagement\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
 F:\personal\.NET\CafeManagement\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.MSBuild.BuildHost.resources.dll
 F:\personal\.NET\CafeManagement\bin\Debug\net8.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
+F:\personal\.NET\CafeManagement\obj\Debug\net8.0\CafeManagement.sourcelink.json
